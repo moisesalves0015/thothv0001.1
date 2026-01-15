@@ -121,7 +121,7 @@ const Topbar = () => {
 
     return (
         <>
-            {/* Fundo Escuro (Backdrop) */}
+            {/* Backdrop */}
             {(menuOpen || profileDropdownOpen) && (
               <div 
                 className="fixed inset-0 z-[999] bg-slate-900/40 backdrop-blur-[2px] animate-in fade-in duration-300"
@@ -129,16 +129,14 @@ const Topbar = () => {
               />
             )}
 
-            <header className={`fixed top-0 left-1/2 -translate-x-1/2 w-full z-[1000] bg-white/95 backdrop-blur-[12px] rounded-b-[16px] border border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.1)] lg:hidden transition-all duration-300 ${menuOpen ? 'rounded-b-[24px]' : ''}`}>
-                {/* Barra principal fixa */}
-                <div className="flex items-center justify-between px-[20px] h-[64px]">
+            <header className={`fixed top-0 left-0 w-full z-[1000] bg-white/95 backdrop-blur-[12px] rounded-b-[16px] border border-white/60 shadow-[0_10px_30px_rgba(0,0,0,0.1)] lg:hidden transition-all duration-300 ${menuOpen ? 'rounded-b-[24px]' : ''}`}>
+                <div className="flex items-center justify-between px-4 h-[64px]">
                     <button
-                        className={`text-[24px] bg-transparent cursor-pointer border-0 flex items-center justify-center w-[40px] h-[40px] text-slate-700 transition-transform ${menuOpen ? 'rotate-90' : ''}`}
+                        className={`text-slate-700 transition-transform ${menuOpen ? 'rotate-90' : ''}`}
                         onClick={() => {
                             setMenuOpen(!menuOpen);
                             setProfileDropdownOpen(false);
                         }}
-                        aria-label="Abrir menu"
                     >
                         {menuOpen ? (
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -159,7 +157,7 @@ const Topbar = () => {
                         >
                             <img
                                 src={avatarAtual}
-                                alt="Avatar do usuário"
+                                alt="Avatar"
                                 className="w-[38px] h-[38px] rounded-full object-cover border-2 border-white shadow-md"
                             />
                         </div>
@@ -174,11 +172,7 @@ const Topbar = () => {
                     </div>
                 </div>
 
-                {/* Menu Mobile Expandido */}
-                <nav className={`flex flex-col gap-[4px] px-[12px] overflow-hidden transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${menuOpen ? "max-h-[85vh] py-[16px] border-t border-slate-100" : "max-h-0 py-0"}`}>
-                    <div className="px-3 mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#006c55] opacity-60">Navegação</span>
-                    </div>
+                <nav className={`flex flex-col gap-1 px-3 overflow-hidden transition-all duration-500 ${menuOpen ? "max-h-[85vh] py-4 border-t border-slate-100" : "max-h-0 py-0"}`}>
                     {mobileMenuItems.map((item, idx) => {
                         const Icon = item.icon;
                         return (
@@ -186,11 +180,10 @@ const Topbar = () => {
                                 key={idx}
                                 href="#" 
                                 onClick={(e) => { e.preventDefault(); closeAll(); }}
-                                className={`flex items-center gap-[14px] no-underline py-[12px] px-[16px] rounded-[12px] transition-all group ${idx === 0 ? 'bg-[#006c55]/5 text-[#006c55] font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'}`}
+                                className={`flex items-center gap-3 py-3 px-4 rounded-xl transition-all ${idx === 0 ? 'bg-[#006c55]/5 text-[#006c55] font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
                             >
-                                <Icon size={20} className={idx === 0 ? 'text-[#006c55]' : 'text-slate-400 group-hover:text-slate-600'} />
+                                <Icon size={20} />
                                 <span className="text-[15px]">{item.label}</span>
-                                {idx === 0 && <div className="ml-auto w-1.5 h-1.5 bg-[#006c55] rounded-full animate-pulse"></div>}
                             </a>
                         );
                     })}
